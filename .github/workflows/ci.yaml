@@ -20,7 +20,7 @@ jobs:
         run: pip install ruff
 
       - name: Lint
-        run: ruff check jobs/
+        run: ruff check .
 
       - name: Check formatting
-        run: ruff format --check jobs/
+        run: ruff format --check .
