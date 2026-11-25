@@ -3,9 +3,6 @@ name: ci
 on:
   pull_request:
     branches: [main]
-    paths:
-      - "jobs/**"
-      - ".github/workflows/ci.yml"
 
 jobs:
   lint:

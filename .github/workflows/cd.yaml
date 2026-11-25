@@ -3,10 +3,6 @@ name: cd
 on:
   push:
     branches: [main]
-    paths:
-      - "jobs/**"
-      - ".github/workflows/cd.yml"
-  workflow_dispatch:
 
 env:
   AWS_REGION: eu-central-1
