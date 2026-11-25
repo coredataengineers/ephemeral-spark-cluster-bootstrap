@@ -1,0 +1,40 @@
+name: cd
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "jobs/**"
+      - ".github/workflows/cd.yml"
+  workflow_dispatch:
+
+env:
+  AWS_REGION: eu-central-1
+  ARTIFACT_PREFIX: artifacts/jobs
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: spark-jobs-deploy
+      cancel-in-progress: false
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Upload job scripts
+        run: |
+          aws s3 sync jobs/ "s3://${{ vars.ARTIFACT_BUCKET }}/${ARTIFACT_PREFIX}/" \
+            --exclude "*" --include "*.py"
+
+      - name: Upload commit-pinned copy
+        run: |
+          aws s3 sync jobs/ "s3://${{ vars.ARTIFACT_BUCKET }}/${ARTIFACT_PREFIX}/${GITHUB_SHA}/" \
+            --exclude "*" --include "*.py"
