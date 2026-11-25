@@ -6,7 +6,7 @@ OUTPUT_PATH = "s3://spark-apex-freight-data/aggregated_output/"
 
 spark = (
     SparkSession.builder.appName("freight-route-metrics")
-    # Overwrite only the partitions this run writes, so reruns are safe.
+    # Overwrite only the partitions this run writes, so reruns are safe..
     .config("spark.sql.sources.partitionOverwriteMode", "dynamic")
     .getOrCreate()
 )
