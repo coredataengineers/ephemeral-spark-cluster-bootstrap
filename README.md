@@ -15,7 +15,6 @@ The example job, `freight_route_metrics`, reads raw shipment data from S3, aggre
 - [Prerequisites](#prerequisites)
 - [Running locally](#running-locally)
 - [Configuration reference](#configuration-reference)
-- [Known gaps](#known-gaps)
 - [References](#references)
 
 ## Architecture
