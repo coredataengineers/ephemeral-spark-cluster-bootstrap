@@ -27,10 +27,5 @@ jobs:
 
       - name: Upload job scripts
         run: |
-          aws s3 sync spark_jobs/ "s3://cde-spark-script/artifacts/jobs/freight_route_metrics.py" \
-            --exclude "*" --include "*.py"
-
-      - name: Upload commit-pinned copy
-        run: |
-          aws s3 sync spark_jobs/ "s3://cde-spark-script/${ARTIFACT_PREFIX}/${GITHUB_SHA}/" \
+          aws s3 sync spark_jobs/ "s3://cde-spark-script/artifacts/jobs/" \
             --exclude "*" --include "*.py"
